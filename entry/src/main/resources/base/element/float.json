@@ -1,0 +1,20 @@
+{
+  "float": [
+    {
+      "name": "magnifier_control_button_size",
+      "value": "48vp"
+    },
+    {
+      "name": "magnifier_primary_button_size",
+      "value": "82vp"
+    },
+    {
+      "name": "magnifier_bottom_panel_radius",
+      "value": "31vp"
+    },
+    {
+      "name": "magnifier_reader_text_size",
+      "value": "31fp"
+    }
+  ]
+}
