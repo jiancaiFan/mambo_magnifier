@@ -1,6 +1,7 @@
 import { common } from '@kit.AbilityKit'
 import { Action, Store, StoreSubscriber, StoreSubscription } from 'redux_ark'
 import { MagnifierAction } from '../redux/magnifier/MagnifierAction'
+import { MagnifierMapper } from '../redux/magnifier/MagnifierMapper'
 import { MagnifierState } from '../redux/magnifier/MagnifierState'
 import { MagnifierStoreProvider } from '../redux/magnifier/MagnifierStoreProvider'
 import { MagnifierRuntimeService } from '../services/magnifier/MagnifierRuntimeService'
@@ -20,6 +21,10 @@ export class MagnifierViewModel implements StoreSubscriber {
 
   onStateChanged(): void {
     this.state = this.store.getState()
+  }
+
+  getPreviewSurfaceRect(displayWidth: number, displayHeight: number): SurfaceRect {
+    return MagnifierMapper.toPreviewSurfaceRect(displayWidth, displayHeight)
   }
 
   onCleared(): void {

@@ -27,12 +27,8 @@ export struct MagnifierPage {
       .onLoad(() => {
         const surfaceId = this.xComponentController.getXComponentSurfaceId()
         const defaultDisplay = display.getDefaultDisplaySync()
-        this.xComponentController.setXComponentSurfaceRect({
-          offsetX: 0,
-          offsetY: 0,
-          surfaceWidth: defaultDisplay.width,
-          surfaceHeight: defaultDisplay.height
-        })
+        const surfaceRect = this.viewModel.getPreviewSurfaceRect(defaultDisplay.width, defaultDisplay.height)
+        this.xComponentController.setXComponentSurfaceRect(surfaceRect)
         this.xComponentController.setXComponentSurfaceRotation({ lock: true })
         this.viewModel.onSurfaceReady(
           this.getUIContext().getHostContext() as common.UIAbilityContext,
