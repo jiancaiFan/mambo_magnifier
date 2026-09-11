@@ -1,30 +1,39 @@
-import {
-  Action,
-  Dispatch,
-  Middleware,
-  MiddlewareAPI
-} from 'redux_ark';
-import MagnifierAction from './MagnifierAction';
-import { MagnifierState } from './MagnifierState';
+import { Action, Dispatch, Middleware, MiddlewareAPI } from 'redux_ark'
+import { MagnifierRuntimeService } from '../../services/magnifier/MagnifierRuntimeService'
+import { MagnifierState } from './MagnifierState'
 
 export class MagnifierSideEffect implements Middleware<MagnifierState> {
+  private runtimeService: MagnifierRuntimeService
+
+  constructor(runtimeService: MagnifierRuntimeService) {
+    this.runtimeService = runtimeService
+  }
+
   dispatch(store: MiddlewareAPI<MagnifierState>, next: Dispatch<Action>, action: Action): Action {
-    const result = next.dispatch(action);
+    const result = next.dispatch(action)
 
     switch (action.type) {
-      case 'MagnifierRecognitionRequest':
-        store.dispatch(MagnifierAction.RecognitionStart());
-        setTimeout(() => {
-          store.dispatch(MagnifierAction.RecognitionSuccess('每 100g 含量\n能量 1720 kJ\n蛋白质 8.5g\n钠 380 mg'));
-        }, 300);
-        break;
-      case 'MagnifierSpeechToggleRequest':
-        store.dispatch(MagnifierAction.SpeechToggle());
-        break;
+      case 'MagnifierPreviewOpen':
+        this.openPreview()
+        break
+      case 'MagnifierPreviewStop':
+        this.stopPreview()
+        break
       default:
-        break;
+        break
     }
 
-    return result;
+    return result
+  }
+
+  private async openPreview(): Promise<void> {
+    try {
+      await this.runtimeService.startPreview()
+    } catch (error) {
+    }
+  }
+
+  private async stopPreview(): Promise<void> {
+    await this.runtimeService.stopPreview()
   }
 }

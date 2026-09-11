@@ -2,15 +2,19 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "module description"
+      "value": "曼波放大镜"
     },
     {
       "name": "EntryAbility_desc",
-      "value": "description"
+      "value": "曼波放大镜"
     },
     {
       "name": "EntryAbility_label",
       "value": "曼波放大镜"
+    },
+    {
+      "name": "camera_permission_reason",
+      "value": "用于实时打开相机预览。"
     }
   ]
 }
