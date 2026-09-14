@@ -5,7 +5,8 @@ import { MagnifierSideEffect } from './MagnifierSideEffect'
 import { createMagnifierState, MagnifierState } from './MagnifierState'
 
 export class MagnifierStoreProvider {
-  static create(runtimeService: MagnifierRuntimeService): Store<MagnifierState, Action> {
+  static create(): Store<MagnifierState, Action> {
+    const runtimeService = new MagnifierRuntimeService()
     return createConcurrentStore<MagnifierState, Action>(
       new MagnifierReducer(),
       createMagnifierState(),

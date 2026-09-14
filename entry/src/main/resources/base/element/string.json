@@ -15,6 +15,18 @@
     {
       "name": "camera_permission_reason",
       "value": "用于实时打开相机预览。"
+    },
+    {
+      "name": "magnifier_zoom_out",
+      "value": "缩小"
+    },
+    {
+      "name": "magnifier_zoom_in",
+      "value": "放大"
+    },
+    {
+      "name": "magnifier_zoom_slider",
+      "value": "调整放大倍数"
     }
   ]
 }

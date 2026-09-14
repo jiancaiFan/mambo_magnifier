@@ -4,12 +4,10 @@ import { MagnifierAction } from '../redux/magnifier/MagnifierAction'
 import { MagnifierMapper } from '../redux/magnifier/MagnifierMapper'
 import { MagnifierState } from '../redux/magnifier/MagnifierState'
 import { MagnifierStoreProvider } from '../redux/magnifier/MagnifierStoreProvider'
-import { MagnifierRuntimeService } from '../services/magnifier/MagnifierRuntimeService'
 
 @ObservedV2
 export class MagnifierViewModel implements StoreSubscriber {
-  private runtimeService: MagnifierRuntimeService = new MagnifierRuntimeService()
-  private store: Store<MagnifierState, Action> = MagnifierStoreProvider.create(this.runtimeService)
+  private store: Store<MagnifierState, Action> = MagnifierStoreProvider.create()
   @Trace public state: MagnifierState = this.store.getState()
   private subscription?: StoreSubscription
 
@@ -27,6 +25,18 @@ export class MagnifierViewModel implements StoreSubscriber {
     return MagnifierMapper.toPreviewSurfaceRect(displayWidth, displayHeight)
   }
 
+  changeZoom(zoomRatio: number, smooth: boolean): void {
+    this.store.dispatch(MagnifierAction.changeZoom(zoomRatio, smooth))
+  }
+
+  zoomOut(): void {
+    this.store.dispatch(MagnifierAction.zoomOut())
+  }
+
+  zoomIn(): void {
+    this.store.dispatch(MagnifierAction.zoomIn())
+  }
+
   onCleared(): void {
     if (this.subscription !== undefined) {
       this.subscription.unsubscribe()
@@ -36,12 +46,10 @@ export class MagnifierViewModel implements StoreSubscriber {
   }
 
   onSurfaceReady(context: common.UIAbilityContext, surfaceId: string): void {
-    this.runtimeService.bindPreviewSurface(context, surfaceId)
-    this.store.dispatch(MagnifierAction.openPreview())
+    this.store.dispatch(MagnifierAction.openPreview(context, surfaceId))
   }
 
   onSurfaceDestroyed(): void {
-    this.runtimeService.clearPreviewSurface()
     this.store.dispatch(MagnifierAction.stopPreview())
   }
 }

@@ -96,6 +96,66 @@ export class MagnifierCameraService {
     this.isPreviewStarted = false
   }
 
+  getZoomRatioRange(): Array<number> {
+    if (this.videoSession === undefined) {
+      return [1, 1]
+    }
+
+    try {
+      const zoomRatioRange: Array<number> | undefined = this.videoSession.getZoomRatioRange()
+      return zoomRatioRange !== undefined && zoomRatioRange.length >= 2 ? zoomRatioRange : [1, 1]
+    } catch (error) {
+      console.warn(`MagnifierCameraService get zoom range failed: ${JSON.stringify(error)}`)
+      return [1, 1]
+    }
+  }
+
+  getZoomRatio(): number {
+    if (this.videoSession === undefined) {
+      return 1
+    }
+
+    try {
+      return this.videoSession.getZoomRatio()
+    } catch (error) {
+      console.warn(`MagnifierCameraService get zoom ratio failed: ${JSON.stringify(error)}`)
+      return 1
+    }
+  }
+
+  setZoomRatio(zoomRatio: number): boolean {
+    if (this.videoSession === undefined) {
+      return false
+    }
+
+    try {
+      this.videoSession.setZoomRatio(this.clampZoomRatio(zoomRatio))
+      return true
+    } catch (error) {
+      console.warn(`MagnifierCameraService set zoom ratio failed: ${JSON.stringify(error)}`)
+      return false
+    }
+  }
+
+  setSmoothZoomRatio(zoomRatio: number): boolean {
+    if (this.videoSession === undefined) {
+      return false
+    }
+
+    try {
+      this.videoSession.setSmoothZoom(this.clampZoomRatio(zoomRatio), camera.SmoothZoomMode.NORMAL)
+      return true
+    } catch (error) {
+      console.warn(`MagnifierCameraService set smooth zoom ratio failed: ${JSON.stringify(error)}`)
+      return false
+    }
+  }
+
+  private clampZoomRatio(zoomRatio: number): number {
+    const zoomRatioRange = this.getZoomRatioRange()
+    return Math.min(Math.max(zoomRatio, zoomRatioRange[0]), zoomRatioRange[1])
+  }
+
   private selectBackCamera(cameraDevices: Array<camera.CameraDevice>): camera.CameraDevice {
     if (cameraDevices.length === 0) {
       throw new Error('当前设备未发现可用相机')

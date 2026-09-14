@@ -33,4 +33,20 @@ export class MagnifierRuntimeService {
   async stopPreview(): Promise<void> {
     await this.cameraService.stopPreview()
   }
+
+  getZoomRatioRange(): Array<number> {
+    return this.cameraService.getZoomRatioRange()
+  }
+
+  getZoomRatio(): number {
+    return this.cameraService.getZoomRatio()
+  }
+
+  setZoomRatio(zoomRatio: number): boolean {
+    return this.cameraService.setZoomRatio(zoomRatio)
+  }
+
+  setSmoothZoomRatio(zoomRatio: number): boolean {
+    return this.cameraService.setSmoothZoomRatio(zoomRatio)
+  }
 }
