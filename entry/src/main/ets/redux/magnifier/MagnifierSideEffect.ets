@@ -43,8 +43,7 @@ export class MagnifierSideEffect implements Middleware<MagnifierState> {
     action: MagnifierPreviewOpenAction
   ): Promise<void> {
     try {
-      this.runtimeService.bindPreviewSurface(action.context, action.surfaceId)
-      await this.runtimeService.startPreview()
+      await this.runtimeService.startPreview(action.context, action.surfaceId)
       const zoomRatioRange = this.runtimeService.getZoomRatioRange()
       const zoomRatio = this.runtimeService.getZoomRatio()
       store.dispatch(MagnifierAction.zoomReady(MagnifierMapper.toUIModel(zoomRatioRange, zoomRatio)))
@@ -53,7 +52,6 @@ export class MagnifierSideEffect implements Middleware<MagnifierState> {
   }
 
   private async stopPreview(): Promise<void> {
-    this.runtimeService.clearPreviewSurface()
     await this.runtimeService.stopPreview()
   }
 

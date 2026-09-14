@@ -8,16 +8,9 @@ export class MagnifierRuntimeService {
   private abilityContext?: common.UIAbilityContext
   private surfaceId: string = ''
 
-  bindPreviewSurface(context: common.UIAbilityContext, surfaceId: string): void {
+  async startPreview(context: common.UIAbilityContext, surfaceId: string): Promise<void> {
     this.abilityContext = context
     this.surfaceId = surfaceId
-  }
-
-  clearPreviewSurface(): void {
-    this.surfaceId = ''
-  }
-
-  async startPreview(): Promise<void> {
     if (this.abilityContext === undefined || this.surfaceId.length === 0) {
       throw new Error('相机预览 Surface 未就绪')
     }
@@ -31,6 +24,7 @@ export class MagnifierRuntimeService {
   }
 
   async stopPreview(): Promise<void> {
+    this.surfaceId = ''
     await this.cameraService.stopPreview()
   }
 
