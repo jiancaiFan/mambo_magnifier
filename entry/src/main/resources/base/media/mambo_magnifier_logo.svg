@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" fill="none">
+  <title>曼波放大镜 App 图标</title>
+  <desc>浅粉底色上的珊瑚红放大镜，镜片内保留曼波系列的眼睛、微笑与白色 M。</desc>
+  <rect width="1024" height="1024" fill="#FFF1F2"/>
+  <path d="M661 661L800 800" stroke="#0F172A" stroke-width="132" stroke-linecap="round"/>
+  <circle cx="480" cy="480" r="270" fill="#F43F5E"/>
+  <circle cx="480" cy="480" r="226" fill="#0F172A"/>
+  <circle cx="420" cy="348" r="24" fill="#F43F5E"/>
+  <circle cx="540" cy="348" r="24" fill="#F43F5E"/>
+  <path d="M375 569V421L480 525L585 421V569" stroke="#FFFFFF" stroke-width="56" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M396 635C438 673 522 673 564 635" stroke="#F43F5E" stroke-width="19" stroke-linecap="round"/>
+</svg>
